@@ -8,9 +8,9 @@ class TurnoController {
         def paciente = Paciente.get(session.paciente.id)
         def fechaDesde = Date.parse('yyyy-MM-dd',params.fechaDesde)
         def fechaHasta = Date.parse('yyyy-MM-dd',params.fechaHasta)
-        // def listaTurnos = Turno.findAllByFechaBetweenAndPaciente(params.fechaDesde,params.fechaHasta,paciente)
-        def listaTurnos = Turno.findAll("from Turno as t where (t.fecha between :fechaDesde and :fechaHasta ) and t.paciente.dni = :dni",
-            [fechaDesde: fechaDesde, fechaHasta: fechaHasta, dni: paciente.dni])
+        def listaTurnos = Turno.findAllByFechaBetweenAndPaciente(fechaDesde,fechaHasta,paciente)
+        // def listaTurnos = Turno.findAll("from Turno as t where (t.fecha between :fechaDesde and :fechaHasta ) and t.paciente.dni = :dni",
+        //     [fechaDesde: fechaDesde, fechaHasta: fechaHasta, dni: paciente.dni])
         def map = [listaTurnos: listaTurnos, paciente: paciente, fechaDesde: fechaDesde, fechaHasta: fechaHasta]
         render(view: "listaTurnos", model: map)
     }
